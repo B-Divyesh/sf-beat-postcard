@@ -243,8 +243,8 @@
       "degree": 5
     },
     {
-      "id": "tsconfig_include",
-      "label": "include",
+      "id": "src_main_escapehtml",
+      "label": "escapeHtml()",
       "degree": 5
     }
   ],
