@@ -177,3 +177,26 @@ of the research reply-rate target, no human calibration-time telemetry, no
 offline promise or service worker, and no realtime service because sharing is
 asynchronous through a link. The free product has no paid offer to register.
 No current product defect is known in the verified scope.
+
+## Independent verification 2
+
+Date: 2026-09-05
+Verdict: **PASS**
+
+Implementation reviewed: `36324c221bd3bd3e2a6d45f1d8ea61be8df61276`
+Documentation pointer: `d637d8e6d3dc71f3abb2cfafe4b37eb4538b925b`
+
+An independent fresh checkout ran all 21 declared claim commands separately,
+4 unit tests, all 22 browser tests, the production build, and the high-severity
+audit. Every command passed. The clean build's live JavaScript asset matched
+the HTTPS asset by SHA-256. Fresh desktop and phone checks confirmed the first
+screen, demo isolation and reset, loss, win, reply, return link, routes, legal
+pages, designed HTTP 404, keyboard/touch/reduced-motion paths, live axe scans,
+and a 60 FPS phone-profile measurement. The repaired plain loss/404 headings
+and all five newly declared claim groups were verified. There are zero findings
+and zero untested public claims.
+
+Report: `.factory/verification-2.md`
+Evidence: `/work/.evidence/beat-postcard-verify-2-claims.log`,
+`/work/.evidence/beat-postcard-verify-2-clean-verify.log`, and
+`/work/.evidence/beat-postcard-verify-2-live/`.
