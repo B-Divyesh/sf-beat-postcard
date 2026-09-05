@@ -363,3 +363,23 @@ An independent fresh worktree ran `npm ci`, `npm audit --audit-level=high`, all 
 Fresh live desktop and phone contexts showed the job, audience, sample action, and game board before scrolling. The live demo was populated and persistently labelled; Reset restored it; Start for real left pre-seeded real data unchanged. The deterministic run reached loss, win, completed reply, and a fresh-client return link. Live checks also passed routes and recovery, legal pages, designed HTTP 404, same-origin privacy requests, keyboard focus, reduced motion, axe, 44 px phone targets, 9.41:1 demo focus contrast, and 60 FPS under the declared phone profile.
 
 All Verification 1 and Strict review 1 findings remain resolved. There are zero findings and zero untested public claims. Full report: `.factory/verification-3.md`. Evidence: `/work/.evidence/beat-postcard-verify-3/`.
+
+## Strict review 2
+
+Date: 2026-09-05
+
+Verdict: **PASS**
+
+Implementation reviewed: `aa23aa145a8f50385b8698ea6e8f42910b3fba8e`
+
+Repair documentation reviewed: `089ff4df07ff0486cc8c9828d023c470e6b96fa6`
+
+This review made no product-code change. A clean detached worktree ran all 21 declared claim commands separately, 4 unit tests, 23 browser tests, the production build, and the high-severity audit. All passed. The production JavaScript and CSS matched the live HTTPS assets by SHA-256.
+
+Fresh desktop and phone contexts showed the job, audience, sample action, and playable board before scrolling. The live demo remained labelled and populated, reset correctly, and preserved pre-seeded real data. A deterministic live run reached loss, win, completed reply, and an independent return link. Live checks also covered normal, invalid, and boundary pattern links; privacy and terms; designed HTTP 404; same-origin request behavior; no microphone request; keyboard and dialog focus; reduced motion; phone targets; focus contrast; axe; and the 60 FPS phone profile.
+
+Verification 1 F-01/F-02 and Review 1 F-01/F-02 remain resolved. There are zero findings and zero untested public claims.
+
+Report: `.factory/review-2.md`
+
+Evidence: `/work/.evidence/beat-postcard-review-2/`
