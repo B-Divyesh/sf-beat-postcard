@@ -68,3 +68,28 @@ The percussion is generated at runtime with Web Audio. No song, recorded sample,
 - There is no realtime multiplayer service because the brief calls for asynchronous link sharing.
 
 No known functional or accessibility defect remains in the tested scope.
+
+## Independent verification 1
+
+Date: 2026-09-05
+Verdict: **FAIL**
+
+Reviewed implementation: `15382346ecc2c5fa7d9e4f26fedcb855e505a050`
+Reviewed documentation: `f783d4db039ea9cb6d3f42848c76a54dffabdb86`
+
+An independent clean checkout completed `npm ci`, all 16 declared claim
+commands, 4 unit tests, 17 browser tests, and the production build. Fresh live
+desktop and phone checks completed the creator, loss, win, reply, return-link,
+demo-isolation, reset, legal-route, and designed-404 paths. Live
+Playwright/axe checks found no serious or critical accessibility violations.
+
+The product is not accepted yet. The verifier found two unresolved issues:
+
+- Loss and 404 headings use forbidden metaphor copy instead of plain words.
+- Five public claim groups are not in `.factory/claims.json` with observable
+  declared tests: the exact sample tempo, link contents, microphone use,
+  analytics/ads/tracking, and absence of uploads/rankings/profiles/biometric
+  profiling.
+
+See `.factory/verification-1.md` for evidence, commands, and the required
+follow-up. Evidence is under `/work/.evidence/beat-postcard-verify-1/`.
