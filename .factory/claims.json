@@ -1,0 +1,114 @@
+[
+  {
+    "id": "complete-exchange",
+    "claim": "One browser can share an eight-beat call and another fresh browser can copy it, add a bar, and return a completed link.",
+    "where": "landing page, game, README",
+    "test": "npm test -- --grep @claim:complete-exchange",
+    "sandbox": "fresh creator, receiver, and return browser contexts; generated call link; scripted winning copy; completed reply link"
+  },
+  {
+    "id": "round-duration",
+    "claim": "A complete scripted round finishes in under 45 seconds.",
+    "where": "landing page and README",
+    "test": "npm test -- --grep @claim:round-duration",
+    "sandbox": "fresh creator and receiver contexts; measured from first load through completed two-bar link"
+  },
+  {
+    "id": "win-loss-endings",
+    "claim": "The copy challenge reaches a clear win or loss end state.",
+    "where": "game and README",
+    "test": "npm test -- --grep @claim:win-loss-endings",
+    "sandbox": "sample call; eight deliberately wrong sounds; loss result; retry returns to ready state; win is covered by complete-exchange"
+  },
+  {
+    "id": "restart-reset",
+    "claim": "Play again clears the reply and resets the round to the original call.",
+    "where": "completed reply screen and README",
+    "test": "npm test -- --grep @claim:restart-reset",
+    "sandbox": "completed two-bar link; Play again; ready state with original first beat and no completed result"
+  },
+  {
+    "id": "demo-sandbox",
+    "claim": "The one-click sample stays labelled, resets, and never changes real draft or settings data.",
+    "where": "landing page, demo banner, README",
+    "test": "npm test -- --grep @claim:demo-sandbox",
+    "sandbox": "pre-seeded real storage; demo changes and reset; Start for real; byte-for-byte real values checked"
+  },
+  {
+    "id": "keyboard-controls",
+    "claim": "D, F, J, and K can create a complete shareable call.",
+    "where": "game controls and README",
+    "test": "npm test -- --grep @claim:keyboard-controls",
+    "sandbox": "fresh browser; eight keyboard inputs; generated share link"
+  },
+  {
+    "id": "touch-controls",
+    "claim": "Touch controls can add percussion sounds on a phone-sized screen.",
+    "where": "game controls and README",
+    "test": "npm test -- --grep @claim:touch-controls",
+    "sandbox": "fresh touch-enabled 390 by 844 browser context; physical coordinate tap; first beat result"
+  },
+  {
+    "id": "audio-gesture",
+    "claim": "Sound starts only after the player presses Enable sound or a pad.",
+    "where": "audio gate, privacy page, README",
+    "test": "npm test -- --grep @claim:audio-gesture",
+    "sandbox": "fresh browser; no autoplay media; pre-gesture waiting state; explicit user press; ready state"
+  },
+  {
+    "id": "synthesized-sounds",
+    "claim": "Kick, Clap, Tick, and Bell are built-in synthesized sounds with no audio download.",
+    "where": "landing facts, privacy page, README",
+    "test": "npm test -- --grep @claim:synthesized-sounds",
+    "sandbox": "fresh browser; media requests recorded through audio enable and a played Kick; no audio or video network request"
+  },
+  {
+    "id": "timing-check",
+    "claim": "Four taps set and save a timing offset in under 20 seconds.",
+    "where": "Settings, controls help, README",
+    "test": "npm test -- --grep @claim:timing-check",
+    "sandbox": "fresh browser; four scheduled click pulses and taps; saved offset and elapsed time"
+  },
+  {
+    "id": "settings-persist",
+    "claim": "Wide timing and reduced motion settings persist after reload.",
+    "where": "Settings and README",
+    "test": "npm test -- --grep @claim:settings-persist",
+    "sandbox": "fresh browser; change both settings; reload; visual reduced-motion class and checked controls"
+  },
+  {
+    "id": "draft-recovery",
+    "claim": "An unfinished call returns after a page reload.",
+    "where": "privacy page and README",
+    "test": "npm test -- --grep @claim:draft-recovery",
+    "sandbox": "fresh browser; enter two different sounds; reload; restored notes and next-beat status"
+  },
+  {
+    "id": "local-privacy",
+    "claim": "Drafts and settings stay in the browser, and creating a share link sends no data to another origin.",
+    "where": "landing privacy section, privacy page, README",
+    "test": "npm test -- --grep @claim:local-privacy",
+    "sandbox": "fresh browser; full creator flow; all requests recorded; storage keys and identity fields inspected"
+  },
+  {
+    "id": "free-no-account",
+    "claim": "Every current game feature is free and needs no account.",
+    "where": "landing facts, terms page, README",
+    "test": "npm test -- --grep @claim:free-no-account",
+    "sandbox": "fresh browser; creator path reaches a usable share link without sign-in, checkout, or payment controls"
+  },
+  {
+    "id": "render-rate",
+    "claim": "The board maintains at least 55 rendered frames per second on the test phone profile.",
+    "where": "README and handoff",
+    "test": "npm test -- --grep @claim:render-rate",
+    "sandbox": "390 by 844 touch context at 2x device scale with four-times CPU throttling; median requestAnimationFrame rate"
+  },
+  {
+    "id": "invalid-recovery",
+    "claim": "Invalid pattern links open a recovery screen with a way to make a new pattern.",
+    "where": "README and invalid pattern route",
+    "test": "npm test -- --grep @claim:invalid-recovery",
+    "sandbox": "fresh browser; malformed pattern path; explanatory heading and working home link"
+  }
+]

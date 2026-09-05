@@ -1,0 +1,25 @@
+{
+  "routes": [
+    { "route": "/demo", "rewrite": "/index.html" },
+    { "route": "/privacy", "rewrite": "/index.html" },
+    { "route": "/terms", "rewrite": "/index.html" },
+    { "route": "/p/*", "rewrite": "/index.html" }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "/*.{css,js,png,jpg,jpeg,svg,webp,ico,json,txt,xml,map}"]
+  },
+  "responseOverrides": {
+    "404": { "rewrite": "/404.html" }
+  },
+  "globalHeaders": {
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+    "Cross-Origin-Opener-Policy": "same-origin"
+  },
+  "mimeTypes": {
+    ".webp": "image/webp"
+  }
+}
