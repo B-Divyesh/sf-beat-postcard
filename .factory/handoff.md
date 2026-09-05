@@ -233,3 +233,118 @@ The pre-existing `graphify-out/` working-tree changes were left untouched.
 Report: `.factory/review-1.md`
 
 Evidence: `/work/.evidence/beat-postcard-review-1-*`
+
+## Repair 2 — accessibility findings resolved
+
+Date: 2026-09-05
+
+Implementation commit deployed:
+`aa23aa145a8f50385b8698ea6e8f42910b3fba8e`
+
+The documentation commit follows the implementation commit. Its exact SHA is
+recorded in the final worker report; it does not change the deployed product
+image.
+
+### Changes
+
+- The demo banner's **Reset demo** and **Start for real** controls now use a
+  dark focus outline against the amber banner. The live rendered contrast is
+  9.41:1, above the required 3:1.
+- Both demo actions are now 44 CSS px high on the tested phone.
+- The Settings **Timing offset** slider now has a 44 CSS px hit area.
+- The product design record now states the 44 CSS px minimum and retains 48 px
+  primary game controls.
+- Browser regressions tab to each banner action and calculate contrast from
+  rendered colors. The mobile regression measures actual hit areas on the
+  home page, demo page, and open Settings dialog. These are rendered outcomes,
+  not source-string checks.
+
+### Clean verification
+
+A fresh clone of the pushed implementation commit completed `npm ci` with zero
+reported vulnerabilities. All checks ran from that clone:
+
+- Every command in `.factory/claims.json`: 21 of 21 passed individually.
+- Claim-tag audit: 21 unique declarations, exactly one matching tag per claim,
+  no undeclared tags, and all commands matched their IDs.
+- `npm run test:unit`: 4 of 4 passed.
+- `npm test`: 23 of 23 browser tests passed.
+- `npm run build`: passed and produced `dist/`.
+- `npm audit --audit-level=high`: zero vulnerabilities.
+- Main JavaScript: 38,689 bytes raw / 11,446 bytes gzip.
+- Main CSS: 19,051 bytes raw / 5,056 bytes gzip.
+
+### Deployment and live verification
+
+The clean build was deployed with
+`/opt/fleet/lib/deploy-static.sh beat-postcard dist`. Deployment ID
+`42a6c12f-1d06-4d4b-aaa2-20f1bfcd4436` succeeded. The custom HTTPS domain
+returned 200. The live JavaScript and CSS SHA-256 values matched the clean
+build exactly.
+
+Fresh 1440 by 1000 desktop and 390 by 844, 2x touch-phone contexts confirmed:
+
+- Before scrolling, both showed the job, audience, **Try it with sample
+  data**, and the game board. Neither had horizontal overflow.
+- `/demo` showed the persistent sample label, Mira, 104 BPM, and all eight
+  populated beats.
+- Reset restored the sample, Start for real restored a pre-seeded real Bell
+  draft, and demo actions left real draft and settings values unchanged.
+- Keyboard focus reached both banner actions. Each showed a 4 px dark outline
+  with 9.41:1 contrast against the banner.
+- Both banner actions and the timing slider measured 44 CSS px high.
+- A deliberately wrong copy reached **Copy attempt did not pass**. Retry then
+  reached **You copied the call** with the sample sequence. Eight reply sounds
+  reached **The two-bar reply is complete**; a fresh third context opened the
+  completed two-bar link. Play again restored the original ready state.
+- The full exchange used only the product origin, opened one top-level frame,
+  requested no microphone, and produced no page or console errors.
+- Home, demo, privacy, terms, valid 96 and 116 BPM links, and invalid links
+  returned the expected pages. Invalid versions, low/high tempos, note values,
+  and lengths all showed the recovery action. The designed unknown route
+  deliberately returned HTTP 404.
+- Live axe scans reported zero serious or critical violations across home,
+  demo, privacy, terms, valid-pattern, invalid-pattern, and 404 states.
+- The factory URL verifier passed title, language, one `h1`, `main`, image
+  alternatives, labelled buttons, and console checks.
+- The 390 by 844, 2x touch profile under 4x CPU throttling recorded five 60
+  FPS samples; the declared threshold is 55 FPS.
+- Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100,
+  SEO 100; LCP 1.0 s, total blocking time 20 ms, CLS 0.
+- All discovered product links returned 200. Reduced-motion CSS remained
+  effective. No service worker is installed, matching the absence of an
+  offline or update promise.
+
+Evidence:
+
+- `/work/.evidence/beat-postcard-repair-2-clean-claims.log`
+- `/work/.evidence/beat-postcard-repair-2-claim-tag-audit.json`
+- `/work/.evidence/beat-postcard-repair-2-clean-verify.log`
+- `/work/.evidence/beat-postcard-repair-2-clean-audit-assets.log`
+- `/work/.evidence/beat-postcard-repair-2-deployment-match.log`
+- `/work/.evidence/beat-postcard-repair-2-url/verify.json`
+- `/work/.evidence/beat-postcard-repair-2-live/live-browser-run.json`
+- `/work/.evidence/beat-postcard-repair-2-live/desktop-first.png`
+- `/work/.evidence/beat-postcard-repair-2-live/phone-first.png`
+- `/work/.evidence/beat-postcard-repair-2-live/reset-focus.png`
+- `/work/.evidence/beat-postcard-repair-2-live/start-real-focus.png`
+- `/work/.evidence/beat-postcard-repair-2-live/loss-end.png`
+- `/work/.evidence/beat-postcard-repair-2-live/win-end.png`
+- `/work/.evidence/beat-postcard-repair-2-live/complete-end.png`
+- `/work/.evidence/beat-postcard-repair-2-live-links-console.json`
+- `/work/.evidence/beat-postcard-repair-2-live-invalid-boundaries.json`
+- `/work/.evidence/beat-postcard-repair-2-lighthouse.json`
+- `/work/.evidence/beat-postcard-repair-2-lighthouse-summary.json`
+- `/work/.evidence/catalog-description.txt`
+
+### Earlier findings and remaining scope
+
+Verification 1's plain-copy and missing-claim findings remain resolved. Strict
+review 1's two accessibility findings are resolved by this implementation and
+its rendered regressions. No public claim is untested.
+
+The documented scope limits remain unchanged: there is no silent telemetry for
+the 25% reply research target, no human calibration-time tracking, no offline
+promise, and no realtime backend because exchanges are asynchronous links. The
+current product is free and advertises no paid offer, so no billing metadata is
+required. No known product defect remains in the verified scope.
