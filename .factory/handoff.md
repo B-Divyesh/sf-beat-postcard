@@ -82,6 +82,8 @@ commands, 4 unit tests, 17 browser tests, and the production build. Fresh live
 desktop and phone checks completed the creator, loss, win, reply, return-link,
 demo-isolation, reset, legal-route, and designed-404 paths. Live
 Playwright/axe checks found no serious or critical accessibility violations.
+The live JavaScript asset exactly matched the clean build of the reviewed
+implementation candidate by SHA-256.
 
 The product is not accepted yet. The verifier found two unresolved issues:
 

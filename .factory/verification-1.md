@@ -7,6 +7,10 @@ Documentation reviewed: `f783d4db039ea9cb6d3f42848c76a54dffabdb86`
 Live URL: <https://beat-postcard.sociobot.in>  
 Date: 2026-09-05
 
+The live JavaScript asset was `/assets/index-ztzSc59t.js`. Its SHA-256 was
+`f6a6ea53cffee394661b71b6e0ca4a4b5ccaffc9531088f984d041816c89645c`, exactly
+matching a clean production build of the reviewed candidate.
+
 Beat Postcard's job is to let two friends exchange a short eight-beat rhythm
 challenge through a browser link. It is for friends who want a small music game
 without song libraries, installs, accounts, or rankings. Before scrolling, the
