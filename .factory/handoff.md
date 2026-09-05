@@ -102,9 +102,9 @@ Date: 2026-09-05
 
 Implementation commit deployed: `36324c221bd3bd3e2a6d45f1d8ea61be8df61276`
 
-Documentation commit for this repair record: recorded in the follow-up line
-after this handoff is committed. Documentation-only commits do not change the
-deployed product image.
+Documentation commit for this repair record:
+`2ad4d7ccbf7fadc5be07587d900500be17d335f6`. Documentation-only commits do not
+change the deployed product image.
 
 ### Findings resolved
 
