@@ -1,0 +1,32 @@
+{
+  "slug": "beat-postcard",
+  "title": "Beat Postcard",
+  "territory": "games-creative",
+  "user": "Two friends who want to trade short, playable rhythm challenges in a browser without copyrighted song libraries, installs, or competitive rank pressure.",
+  "evidence": [
+    {
+      "url": "https://hn.algolia.com/api/v1/items/46619844",
+      "date": "2026-01-14",
+      "quote_or_summary": "An HN player likes the auto-charting idea but reports that the basic tempo-input flow does not work in practice, showing both desire for browser rhythm play and sensitivity to input onboarding."
+    },
+    {
+      "url": "https://chromewebstore.google.com/detail/dancejump-for-youtube-rhy/hhdeflibphdghcpblkekakmbennfcaci",
+      "date": "2026-09-01",
+      "quote_or_summary": "The fetched Chrome Web Store page is the live DanceJump-for-YouTube rhythm-game distribution page; its YouTube dependency highlights the licensing/platform risk to avoid."
+    }
+  ],
+  "recurrence": "The feedback names a concrete browser rhythm-game interaction people wanted to use but could not successfully start; web rhythm games repeatedly surface in 2026 HN search results.",
+  "current_workaround": "Install a desktop rhythm game, use a YouTube extension, or share a recording rather than a playable challenge.",
+  "incumbents_and_gap": "osu! and browser auto-charters offer deep or copyright-dependent music play. They do not provide a tiny legal, link-shareable asynchronous duet based on built-in percussion.",
+  "smallest_useful_product": "A 45-second call-and-response game: make an eight-beat pattern from original synthesized kit sounds, send a link, and the recipient mirrors it then adds one bar. Runs differ through generated tempo, accents, and reply choices. Non-goals: song uploads, YouTube integration, ranked ladders, or MIDI hardware support.",
+  "success_measure": "At least 25% of first completed patterns receive a reply, and median first-play calibration completes in under 20 seconds.",
+  "artifact_class": "browser-game",
+  "monetization": "free \u2014 the compact share loop benefits from universal access; a one-time sound-pack purchase is optional later.",
+  "constraints": "Use original synthesized samples only; schedule with Web Audio rather than network timing; provide keyboard, touch, and reduced-flash modes; no biometric rhythm profiling.",
+  "est_build_effort": "S",
+  "scale": "small",
+  "why_distinct": "It is social musical call-and-response with original audio, not another copyrighted-song chart player.",
+  "confidence": 3,
+  "state": "RESEARCHED",
+  "research_run": "research-browser-games-0901-204337-3"
+}
