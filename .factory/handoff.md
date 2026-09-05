@@ -95,3 +95,85 @@ The product is not accepted yet. The verifier found two unresolved issues:
 
 See `.factory/verification-1.md` for evidence, commands, and the required
 follow-up. Evidence is under `/work/.evidence/beat-postcard-verify-1/`.
+
+## Repair 1 — accepted candidate
+
+Date: 2026-09-05
+
+Implementation commit deployed: `36324c221bd3bd3e2a6d45f1d8ea61be8df61276`
+
+Documentation commit for this repair record: recorded in the follow-up line
+after this handoff is committed. Documentation-only commits do not change the
+deployed product image.
+
+### Findings resolved
+
+| Earlier finding | Resolution | Regression evidence |
+| --- | --- | --- |
+| F-01: metaphor headings on loss and 404 pages | Replaced all reported loss, SPA 404, and static 404 headings with **Copy attempt did not pass** and **Page not found**. | The loss-path browser test and the static 404 accessibility test assert the displayed recovery headings. Fresh live loss and HTTP 404 runs passed. |
+| F-02: five untested public promise groups | Added five declared, observable browser claims: `sample-call`, `share-link-contents`, `no-microphone`, `no-tracking`, and `product-boundaries`. | Each declaration maps to exactly one tagged outcome test; the claim-tag audit reports 21 of 21 declarations with one test each. |
+
+The new tests inspect the populated sample board, the actual generated URL,
+observed microphone API use, all network origins and frames during a complete
+sample exchange, and the completed game's visible controls plus persisted demo
+state. They do not merely search product source text.
+
+### Verification
+
+From a clean clone of implementation `36324c2`, `npm ci` completed with zero
+reported vulnerabilities. Every command declared in `.factory/claims.json` was
+then run separately: **21 of 21 passed**. The clean suite also passed:
+
+- `npm run test:unit`: 4 of 4 tests passed.
+- `npm test`: 22 of 22 browser tests passed, including accessibility, keyboard,
+  reduced-motion, mobile layout, and all declared claims.
+- `npm run build`: passed and produced `dist/`.
+- `npm audit --audit-level=high`: zero vulnerabilities.
+- Production assets: JavaScript 38.69 kB raw / 11.52 kB gzip; CSS 18.96 kB raw
+  / 5.02 kB gzip.
+
+Deployment used `/opt/fleet/lib/deploy-static.sh beat-postcard dist` with the
+product's existing Static Web App configuration. Deployment ID
+`0272b4cf-f025-4f24-a9b7-2d1ab614ef66` succeeded. The HTTPS product then passed
+the factory URL check: HTTP 200, title, `lang`, one `h1`, `main`, labels, image
+alt checks, and no console errors.
+
+Fresh live browser checks passed on desktop and a 390 by 844, 2x touch phone:
+
+- Before scrolling, both contexts showed the job, audience, **Try it with
+  sample data**, and the playable percussion board. The phone had no horizontal
+  overflow.
+- The labelled 104 BPM Mira demo reset correctly and preserved pre-seeded real
+  drafts and settings. Start for real restored the real draft.
+- A deliberately wrong run reached the plain loss screen. The sample sequence
+  reached the win screen; eight reply sounds produced a completed two-bar link;
+  that link opened correctly in a fresh browser context.
+- Live Playwright/axe scans of `/`, `/demo`, `/privacy`, `/terms`, a valid
+  pattern, and `/definitely-missing` found zero serious or critical violations.
+  The final path deliberately returned the designed page with HTTP 404.
+- Live internal route checks returned 200 for `/`, `/demo`, `/privacy`,
+  `/terms`, the valid pattern, `robots.txt`, and `sitemap.xml`; the deliberately
+  missing path returned 404.
+- The live test phone profile measured 60 fps at 390 by 844, 2x device scale,
+  and four-times CPU throttling (claim threshold: 55 fps).
+
+Evidence:
+
+- `/work/.evidence/repair-1-clean-claims.log`
+- `/work/.evidence/repair-1-clean-verify.log`
+- `/work/.evidence/repair-1-claim-tag-audit.json`
+- `/work/.evidence/repair-1-live/verify.json`
+- `/work/.evidence/repair-1-live/live-browser-run.json`
+- `/work/.evidence/repair-1-live/desktop-first.png`
+- `/work/.evidence/repair-1-live/phone-first.png`
+- `/work/.evidence/repair-1-live/loss-end.png`
+- `/work/.evidence/repair-1-live/complete-end.png`
+- `/work/.evidence/repair-1-live/404-live.png`
+
+### Remaining scope notes
+
+The previous scope decisions remain honest: there is no tracking-based measure
+of the research reply-rate target, no human calibration-time telemetry, no
+offline promise or service worker, and no realtime service because sharing is
+asynchronous through a link. The free product has no paid offer to register.
+No current product defect is known in the verified scope.
