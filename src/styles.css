@@ -453,11 +453,19 @@ dialog form { padding: 24px; }
   .site-header nav a, .text-button { font-size: 13px; }
   .wordmark > span:last-child { display: none; }
   .first-screen { min-height: auto; padding: 30px 0 52px; gap: 30px; }
-  h1 { font-size: clamp(2.45rem, 12vw, 3.6rem); }
+  h1 { max-width: none; font-size: clamp(2.3rem, 10vw, 3.15rem); }
   .lede { margin-top: 16px; }
   .intro-actions { margin-top: 20px; }
   .plain-facts { margin-top: 18px; }
   .instrument-panel { padding: 16px 12px 20px; border-radius: 28px 28px 12px 12px; }
+  .first-screen .instrument-panel { display: flex; flex-direction: column; }
+  .first-screen .instrument-panel .panel-heading { order: 1; }
+  .first-screen .instrument-panel .board { order: 2; }
+  .first-screen .instrument-panel .audio-gate { order: 3; }
+  .first-screen .instrument-panel .game-instruction { order: 4; }
+  .first-screen .instrument-panel .status-line { order: 5; }
+  .first-screen .instrument-panel .button-row { order: 6; }
+  .first-screen .instrument-panel .share-output { order: 7; }
   .board { width: min(100%, 380px); margin-top: 20px; border-width: 12px; }
   .beat-position { width: 50px; height: 50px; }
   .beat-marker, button.beat-marker { width: 50px; height: 50px; min-height: 50px; border-width: 2px; }
