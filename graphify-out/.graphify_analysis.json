@@ -235,39 +235,17 @@
       "degree": 6
     },
     {
-      "id": "src_main_escapehtml",
-      "label": "escapeHtml()",
+      "id": "src_pattern_validtempo",
+      "label": "validTempo()",
       "degree": 5
     },
     {
-      "id": "src_pattern_validtempo",
-      "label": "validTempo()",
+      "id": "src_main_escapehtml",
+      "label": "escapeHtml()",
       "degree": 5
     }
   ],
   "surprises": [
-    {
-      "source": "Draft",
-      "target": "Note",
-      "source_files": [
-        "src/main.ts",
-        "src/pattern.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "peripheral node `Draft` unexpectedly reaches hub `Note`"
-    },
-    {
-      "source": "BeatPostcardApp",
-      "target": "Note",
-      "source_files": [
-        "src/main.ts",
-        "src/pattern.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "bridges separate communities"
-    },
     {
       "source": "BeatPostcardApp",
       "target": "Postcard",
@@ -278,6 +256,28 @@
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "bridges separate communities"
+    },
+    {
+      "source": "BeatPostcardApp",
+      "target": "Note",
+      "source_files": [
+        "src/main.ts",
+        "src/pattern.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "Draft",
+      "target": "Note",
+      "source_files": [
+        "src/main.ts",
+        "src/pattern.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `Draft` unexpectedly reaches hub `Note`"
     }
   ],
   "tokens": {
