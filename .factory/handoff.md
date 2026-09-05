@@ -4,7 +4,7 @@ Date: 2026-09-05
 
 Live URL: <https://beat-postcard.sociobot.in>
 
-Implementation commit deployed: `15382346ecc2c5fa7d9e4f26fedcb855e505a050`
+Implementation commit deployed: `36324c221bd3bd3e2a6d45f1d8ea61be8df61276`
 
 Documentation commit: this handoff-only commit follows the implementation commit. Its SHA is recorded in the final worker report and is not a product-image change.
 
@@ -200,3 +200,36 @@ Report: `.factory/verification-2.md`
 Evidence: `/work/.evidence/beat-postcard-verify-2-claims.log`,
 `/work/.evidence/beat-postcard-verify-2-clean-verify.log`, and
 `/work/.evidence/beat-postcard-verify-2-live/`.
+
+## Strict review 1
+
+Date: 2026-09-05
+
+Verdict: **FAIL**
+
+Implementation reviewed: `36324c221bd3bd3e2a6d45f1d8ea61be8df61276`
+
+Documentation reviewed: `3f0decb2cf9b6ccc256b8513e374be0030ee8f94`
+
+A clean candidate checkout passed all 21 declared claim commands separately,
+the 21-to-21 claim-tag audit, 4 unit tests, 22 browser tests, the production
+build, and the high-severity audit. The live JavaScript still matches the clean
+candidate byte-for-byte. Fresh live desktop and phone contexts completed demo
+isolation and reset, loss, win, reply, fresh-client return, restart, invalid and
+boundary links, privacy and legal routes, reduced motion, keyboard focus,
+same-origin request inspection, and a 60 FPS phone-profile measurement.
+
+Two accessibility findings remain:
+
+- The demo banner's **Reset demo** and **Start for real** buttons show an amber
+  focus outline against the same amber background, giving the visible focus
+  indicator 1:1 contrast.
+- Those two buttons are 38 CSS px high on the phone, and the Settings timing
+  slider is 16 CSS px high. The required minimum is 44 × 44 CSS px.
+
+No public claim is untested. Product code was not changed during this review.
+The pre-existing `graphify-out/` working-tree changes were left untouched.
+
+Report: `.factory/review-1.md`
+
+Evidence: `/work/.evidence/beat-postcard-review-1-*`
