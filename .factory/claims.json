@@ -35,6 +35,13 @@
     "sandbox": "pre-seeded real storage; demo changes and reset; Start for real; byte-for-byte real values checked"
   },
   {
+    "id": "sample-call",
+    "claim": "The demo opens Mira’s eight-beat call at 104 BPM.",
+    "where": "landing page, demo, README",
+    "test": "npm test -- --grep @claim:sample-call",
+    "sandbox": "fresh demo browser; persistent sample label, visible 104 BPM tempo, Mira source, and all eight board sounds checked"
+  },
+  {
     "id": "keyboard-controls",
     "claim": "D, F, J, and K can create a complete shareable call.",
     "where": "game controls and README",
@@ -89,6 +96,34 @@
     "where": "landing privacy section, privacy page, README",
     "test": "npm test -- --grep @claim:local-privacy",
     "sandbox": "fresh browser; full creator flow; all requests recorded; storage keys and identity fields inspected"
+  },
+  {
+    "id": "share-link-contents",
+    "claim": "A shared call link contains only its tempo and selected sounds, not a name or timing score.",
+    "where": "How it works, share output, privacy page, README",
+    "test": "npm test -- --grep @claim:share-link-contents",
+    "sandbox": "fresh creator; create a known eight-sound call; inspect the complete URL structure and reopen it as a playable call"
+  },
+  {
+    "id": "no-microphone",
+    "claim": "A complete sample copy does not request microphone access.",
+    "where": "privacy page, README",
+    "test": "npm test -- --grep @claim:no-microphone",
+    "sandbox": "fresh demo browser with getUserMedia observed; hear and copy all eight sample beats; assert no microphone request"
+  },
+  {
+    "id": "no-tracking",
+    "claim": "A completed sample exchange loads no third-party analytics, ads, or tracking pixels.",
+    "where": "landing privacy section, privacy page, README",
+    "test": "npm test -- --grep @claim:no-tracking",
+    "sandbox": "fresh demo browser; complete copy and reply; record every request and frame; assert only the product origin and one top-level frame"
+  },
+  {
+    "id": "product-boundaries",
+    "claim": "A completed sample exchange has no song upload, ranking, public profile, or biometric rhythm record.",
+    "where": "landing privacy section, privacy page, README",
+    "test": "npm test -- --grep @claim:product-boundaries",
+    "sandbox": "fresh demo browser; complete copy and reply; assert no upload control, no ranking or profile control, and only the demo session storage value"
   },
   {
     "id": "free-no-account",

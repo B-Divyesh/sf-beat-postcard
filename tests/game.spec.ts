@@ -80,6 +80,7 @@ test('@claim:win-loss-endings a missed copy reaches a loss and retry clears the 
   const wrong = sample.map((note) => (note + 1) % 4);
   await copyPattern(page, wrong);
   await expect(page.locator('[data-end-state="loss"]')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Copy attempt did not pass' })).toBeVisible();
   await expect(page.getByText('0 sounds matched. Six matches complete the copy.')).toBeVisible();
   await page.getByRole('button', { name: 'Try the copy again' }).click();
   await expect(page.locator('[data-phase="ready"]')).toBeVisible();
@@ -230,6 +231,94 @@ test('@claim:free-no-account the complete creator path has no sign-in or payment
   await expect(page.getByText(/sign in|subscribe|checkout|payment/i)).toHaveCount(0);
 });
 
+test('@claim:sample-call the demo opens Mira’s complete eight-beat call at 104 BPM', async ({ page }) => {
+  await page.goto('/demo');
+  await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
+  await expect(page.locator('.rhythm-meta')).toContainText('104 BPM');
+  await expect(page.locator('.rhythm-meta')).toContainText('Sample from Mira');
+  const notes = await page.locator('.beat-ring .beat-marker').evaluateAll((beats) => beats.map((beat) => beat.getAttribute('aria-label')));
+  expect(notes).toEqual([
+    'Beat 1, Kick', 'Beat 2, Tick', 'Beat 3, Clap', 'Beat 4, Tick',
+    'Beat 5, Kick', 'Beat 6, Bell', 'Beat 7, Clap', 'Beat 8, Tick',
+  ]);
+});
+
+test('@claim:share-link-contents a created link contains the selected sounds and tempo only', async ({ page }) => {
+  await page.goto('/');
+  await fillBar(page, [0, 1, 2, 3, 0, 1, 2, 3]);
+  await page.getByRole('button', { name: 'Create share link' }).click();
+  const link = new URL(await page.locator('#share-link').inputValue());
+  const parts = link.pathname.split('/').filter(Boolean);
+  expect(parts).toHaveLength(2);
+  expect(parts[0]).toBe('p');
+  expect(parts[1]).toMatch(/^v1-[0-9a-z]+-01230123$/);
+  expect(Number.parseInt(parts[1].split('-')[1], 36)).toBeGreaterThanOrEqual(96);
+  expect(Number.parseInt(parts[1].split('-')[1], 36)).toBeLessThanOrEqual(116);
+  expect(link.search).toBe('');
+  expect(link.hash).toBe('');
+  await page.goto(link.toString());
+  await expect(page.getByRole('heading', { name: 'Copy and extend this rhythm' })).toBeVisible();
+  await expect(page.locator('.beat-ring .beat-marker').nth(7)).toHaveAttribute('aria-label', 'Beat 8, Bell');
+});
+
+test('@claim:no-microphone a full sample copy never requests microphone access', async ({ page }) => {
+  await page.addInitScript(() => {
+    let requests = 0;
+    const mediaDevices = (navigator as Navigator & { mediaDevices?: MediaDevices }).mediaDevices;
+    if (mediaDevices) {
+      Object.defineProperty(mediaDevices, 'getUserMedia', {
+        configurable: true,
+        value: () => {
+          requests += 1;
+          return Promise.reject(new DOMException('Microphone access is not available.', 'NotAllowedError'));
+        },
+      });
+    }
+    Object.defineProperty(window, '__beatPostcardMicrophoneRequests', {
+      configurable: true,
+      get: () => requests,
+    });
+  });
+  await page.goto('/demo');
+  await listen(page);
+  await copyPatternWithKeys(page, sample);
+  await expect(page.locator('[data-end-state="win"]')).toBeVisible();
+  const requests = await page.evaluate(() => (window as typeof window & { __beatPostcardMicrophoneRequests: number }).__beatPostcardMicrophoneRequests);
+  expect(requests).toBe(0);
+});
+
+test('@claim:no-tracking a completed sample exchange loads no third-party ads, analytics, or tracking pixels', async ({ page }) => {
+  const requestOrigins = new Set<string>();
+  page.on('request', (request) => requestOrigins.add(new URL(request.url()).origin));
+  await page.goto('/demo');
+  await listen(page);
+  await copyPatternWithKeys(page, sample);
+  await page.getByRole('button', { name: 'Add your reply bar' }).click();
+  await fillBar(page, [3, 2, 1, 0, 3, 2, 1, 0]);
+  await page.getByRole('button', { name: 'Finish reply' }).click();
+  await expect(page.locator('[data-end-state="complete"]')).toBeVisible();
+  expect([...requestOrigins]).toEqual(['http://127.0.0.1:4173']);
+  expect(page.frames().filter((frame) => frame.url().startsWith('http'))).toHaveLength(1);
+});
+
+test('@claim:product-boundaries a completed sample exchange keeps no upload, ranking, profile, or rhythm-record data', async ({ page }) => {
+  await page.goto('/demo');
+  await listen(page);
+  await copyPatternWithKeys(page, sample);
+  await page.getByRole('button', { name: 'Add your reply bar' }).click();
+  await fillBar(page, [3, 2, 1, 0, 3, 2, 1, 0]);
+  await page.getByRole('button', { name: 'Finish reply' }).click();
+  await expect(page.locator('[data-end-state="complete"]')).toBeVisible();
+  await expect(page.locator('input[type="file"]')).toHaveCount(0);
+  const stored = await page.evaluate(() => Object.entries(localStorage));
+  expect(stored).toEqual([['beat-postcard:demo:session', 'complete']]);
+  const visibleControls = await page.locator('main button, main a, main input').evaluateAll((elements) => elements
+    .filter((element) => getComputedStyle(element).display !== 'none')
+    .map((element) => `${element.tagName}:${(element.textContent ?? '').trim()}:${element.getAttribute('aria-label') ?? ''}`)
+    .join(' '));
+  expect(visibleControls).not.toMatch(/upload|rank|leaderboard|profile/i);
+});
+
 test('@claim:render-rate the phone profile keeps at least 55 rendered frames per second', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
   try {
@@ -262,6 +351,7 @@ test('@a11y core routes have no serious accessibility violations', async ({ page
     await expect(page).toHaveTitle(title);
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('main')).toHaveCount(1);
+    if (route === '/404.html') await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
     const results = await new AxeBuilder({ page }).analyze();
     const serious = results.violations.filter((violation) => violation.impact === 'serious' || violation.impact === 'critical');
     expect(serious, `${route}: ${serious.map((violation) => `${violation.id}: ${violation.help}`).join(', ')}`).toEqual([]);

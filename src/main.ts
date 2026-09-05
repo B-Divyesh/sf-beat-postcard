@@ -419,7 +419,7 @@ class BeatPostcardApp {
       return `
         <div class="result-panel loss" data-end-state="loss">
           <p class="result-mark" aria-hidden="true">${this.score}/8</p>
-          <h2 id="state-heading" tabindex="-1">The call got away</h2>
+          <h2 id="state-heading" tabindex="-1">Copy attempt did not pass</h2>
           <p>${this.score} sounds matched. Six matches complete the copy.</p>
           ${this.scoreStrip(call, this.correct)}
           <div class="button-row"><button class="primary" type="button" data-action="retry">Try the copy again</button><a class="button secondary" href="/" data-nav>Make a new pattern</a></div>
@@ -571,7 +571,7 @@ class BeatPostcardApp {
     return `
       <main id="main" class="narrow" tabindex="-1">
         <div class="missing-ring" aria-hidden="true">404</div>
-        <h1 tabindex="-1">This page has no rhythm</h1>
+        <h1 tabindex="-1">Page not found</h1>
         <p class="lede">The address does not match a game page or a complete pattern link.</p>
         <a class="button primary" href="/" data-nav>Make a pattern</a>
       </main>`;

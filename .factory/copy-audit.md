@@ -42,6 +42,13 @@ Audited 2026-09-05. Counts treat hyphenated terms as one word. No sentence excee
 | Create share link | 3 | Pass |
 | Read the privacy details | 4 | Pass |
 
+## Result and recovery headings
+
+| Copy | Words | Result |
+| --- | ---: | --- |
+| Copy attempt did not pass | 5 | Pass |
+| Page not found | 3 | Pass |
+
 ## Terminology
 
 | Concept | One word used |
