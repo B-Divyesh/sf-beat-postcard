@@ -150,6 +150,18 @@
       "src_audio_percussionaudio_tick"
     ],
     "8": [
+      "tests_game_spec",
+      "tests_game_spec_closecontext",
+      "tests_game_spec_contrastratio",
+      "tests_game_spec_copypattern",
+      "tests_game_spec_copypatternwithkeys",
+      "tests_game_spec_fillbar",
+      "tests_game_spec_listen",
+      "tests_game_spec_sample",
+      "tests_game_spec_smalltouchtargets",
+      "tests_game_spec_tabto"
+    ],
+    "9": [
       "src_main_beatpostcardapp_audiogate",
       "src_main_beatpostcardapp_board",
       "src_main_beatpostcardapp_completepanel",
@@ -158,15 +170,6 @@
       "src_main_beatpostcardapp_scorestrip",
       "src_main_beatpostcardapp_shareoutput",
       "src_main_escapehtml"
-    ],
-    "9": [
-      "tests_game_spec",
-      "tests_game_spec_closecontext",
-      "tests_game_spec_copypattern",
-      "tests_game_spec_copypatternwithkeys",
-      "tests_game_spec_fillbar",
-      "tests_game_spec_listen",
-      "tests_game_spec_sample"
     ],
     "10": [
       "src_main_beatpostcardapp_cleardemostorage",
@@ -190,8 +193,8 @@
     "5": 0.15384615384615385,
     "6": 0.3484848484848485,
     "7": 0.2545454545454545,
-    "8": 0.4642857142857143,
-    "9": 0.2857142857142857,
+    "8": 0.2,
+    "9": 0.4642857142857143,
     "10": 0.5,
     "11": 1.0,
     "12": 1.0
