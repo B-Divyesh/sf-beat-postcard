@@ -35,7 +35,7 @@ Display text uses Georgia with compact tracking and sentence case. Controls and 
 - Primary buttons are amber pills with a dark lower edge, like a physical switch.
 - Secondary controls are outlined and quiet. Links stay underlined.
 - A selected or current beat has both a visible amber ring and an accessible state label.
-- Touch targets are at least 48 by 48 CSS pixels with 8 pixels between targets.
+- Touch targets are at least 44 by 44 CSS pixels with 8 pixels between targets. Primary game controls remain at least 48 pixels high.
 
 ## Motion policy
 

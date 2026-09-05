@@ -107,8 +107,9 @@ button:disabled { opacity: 0.46; cursor: not-allowed; }
   box-shadow: 0 4px 16px var(--shadow);
 }
 .demo-banner div { display: flex; gap: 8px; }
-.demo-banner button { min-height: 38px; padding: 8px 14px; border: 2px solid var(--ink); color: var(--ink); }
+.demo-banner button { min-height: 44px; padding: 8px 14px; border: 2px solid var(--ink); color: var(--ink); }
 .demo-banner button:last-child { background: var(--ink); color: var(--ivory); }
+.demo-banner button:focus-visible { outline-color: var(--ink); }
 
 .site-header {
   width: min(1180px, calc(100% - 40px));
@@ -418,7 +419,7 @@ dialog form { padding: 24px; }
 .switch-row input { width: 28px; height: 28px; accent-color: var(--amber); }
 .timing-setting { padding-top: 18px; }
 .timing-setting label { display: flex; flex-direction: column; }
-.timing-setting > input { width: calc(100% - 80px); margin-top: 18px; accent-color: var(--amber); }
+.timing-setting > input { width: calc(100% - 80px); min-height: 44px; margin-top: 8px; accent-color: var(--amber); cursor: pointer; }
 .timing-setting output { display: inline-block; min-width: 72px; text-align: right; color: var(--amber); font-weight: 800; }
 .calibration-box { margin-top: 20px; padding: 16px; border-radius: 12px; background: var(--night); }
 .calibration-box p { margin: 0 0 12px; color: var(--paper); }

@@ -33,6 +33,46 @@ async function closeContext(context: BrowserContext | undefined): Promise<void> 
   if (context) await context.close();
 }
 
+function contrastRatio(first: string, second: string): number {
+  const luminance = (value: string): number => {
+    const channels = value.match(/[\d.]+/g)?.slice(0, 3).map(Number);
+    if (!channels || channels.length !== 3) throw new Error(`Could not read rendered color: ${value}`);
+    const linear = channels.map((channel) => {
+      const normalized = channel / 255;
+      return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+  };
+  const brighter = Math.max(luminance(first), luminance(second));
+  const darker = Math.min(luminance(first), luminance(second));
+  return (brighter + 0.05) / (darker + 0.05);
+}
+
+async function tabTo(page: Page, locator: ReturnType<Page['locator']>): Promise<void> {
+  for (let index = 0; index < 20; index += 1) {
+    await page.keyboard.press('Tab');
+    if (await locator.evaluate((element) => element === document.activeElement)) return;
+  }
+  throw new Error('Keyboard focus did not reach the expected control.');
+}
+
+async function smallTouchTargets(page: Page): Promise<Array<{ name: string; width: number; height: number }>> {
+  return page.locator('button:visible, a:visible, input:visible').evaluateAll((elements) => elements
+    .map((element) => {
+      const input = element instanceof HTMLInputElement ? element : null;
+      const target = input && (input.type === 'checkbox' || input.type === 'radio') && input.labels?.length
+        ? input.labels[0]
+        : element;
+      const rect = target.getBoundingClientRect();
+      return {
+        name: element.getAttribute('aria-label') || (element.textContent ?? '').trim() || input?.type || element.tagName,
+        width: Math.round(rect.width * 100) / 100,
+        height: Math.round(rect.height * 100) / 100,
+      };
+    })
+    .filter(({ width, height }) => width < 44 || height < 44));
+}
+
 test('@claim:complete-exchange @claim:round-duration two fresh browsers exchange and finish a two-bar postcard', async ({ browser }) => {
   const started = Date.now();
   let creator: BrowserContext | undefined;
@@ -379,17 +419,43 @@ test('@a11y keyboard focus, route titles, invalid links, and reduced motion work
   expect(consoleErrors).toEqual([]);
 });
 
-test('@a11y mobile layout has touch targets and no horizontal overflow', async ({ browser }) => {
+test('@a11y demo banner actions show a contrasting keyboard focus indicator', async ({ page }) => {
+  await page.goto('/demo');
+  const banner = page.getByLabel('Sample data notice');
+  for (const name of ['Reset demo', 'Start for real']) {
+    const control = banner.getByRole('button', { name });
+    await tabTo(page, control);
+    await expect(control).toBeFocused();
+    const rendered = await control.evaluate((element) => {
+      const style = getComputedStyle(element);
+      const bannerStyle = getComputedStyle(element.closest('.demo-banner') as HTMLElement);
+      return {
+        outlineColor: style.outlineColor,
+        outlineStyle: style.outlineStyle,
+        outlineWidth: Number.parseFloat(style.outlineWidth),
+        adjacentColor: bannerStyle.backgroundColor,
+      };
+    });
+    expect(rendered.outlineStyle).not.toBe('none');
+    expect(rendered.outlineWidth).toBeGreaterThanOrEqual(2);
+    expect(contrastRatio(rendered.outlineColor, rendered.adjacentColor)).toBeGreaterThanOrEqual(3);
+  }
+});
+
+test('@a11y mobile layout has touch targets on home, demo, and settings with no horizontal overflow', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
   try {
     const page = await context.newPage();
     await page.goto('/');
     const layout = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
     expect(layout.scrollWidth).toBe(layout.clientWidth);
-    const smallTargets = await page.locator('button:visible, a:visible').evaluateAll((elements) => elements
-      .map((element) => ({ name: (element.textContent ?? '').trim(), rect: element.getBoundingClientRect() }))
-      .filter(({ rect }) => rect.width < 44 || rect.height < 44));
-    expect(smallTargets).toEqual([]);
+    expect(await smallTouchTargets(page)).toEqual([]);
+
+    await page.goto('/demo');
+    expect(await smallTouchTargets(page)).toEqual([]);
+    await page.getByRole('button', { name: 'Settings' }).click();
+    await expect(page.getByRole('dialog', { name: 'Game settings' })).toBeVisible();
+    expect(await smallTouchTargets(page)).toEqual([]);
   } finally {
     await context.close();
   }
