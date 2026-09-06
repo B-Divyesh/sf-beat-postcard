@@ -1,5 +1,31 @@
 # Beat Postcard handoff
 
+## Independent verification 4
+
+Date: 2026-09-06
+Verdict: **PASS**
+Implementation reviewed: `aa23aa145a8f50385b8698ea6e8f42910b3fba8e`
+Documentation baseline: `2c8264bf549da509455ba2402a71f4f567467be9`
+
+An additional clean-checkout browser qualification ran every one of the 21
+declared claim commands separately, 4 unit tests, all 23 Chromium browser
+tests, the production build, and the high-severity dependency audit. All
+passed. The clean JavaScript and CSS hashes exactly match the live assets.
+
+Fresh live Chromium completed the actual loss, win, reply, and fresh-third
+client return-link states; it also checked the first desktop/phone screen,
+demo/reset label, audio gesture, touch/keyboard input, draft and settings
+reload, legal/invalid/404 routes, and live axe scans. WebKit 26.0 completed the
+same independent-client game flow, phone touch check, and recovery paths.
+Firefox 146.0.1 rendered the desktop and sample correctly but its worker
+headless AudioContext resume never resolved after a click, so its audio-gated
+copy phase could not start. Firefox is not a named public support promise; this
+is recorded as worker-browser infrastructure, not a product finding.
+
+Finding count: **0**. Untested public claim count: **0**. Full report:
+`.factory/verification-4.md`; evidence:
+`/work/.evidence/beat-postcard-verify-4/`.
+
 Date: 2026-09-05
 
 Live URL: <https://beat-postcard.sociobot.in>
