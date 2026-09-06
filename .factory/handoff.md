@@ -1,5 +1,16 @@
 # Beat Postcard handoff
 
+## Strict review 4
+
+Date: 2026-09-06
+Verdict: **PASS**
+Implementation reviewed: `aa23aa145a8f50385b8698ea6e8f42910b3fba8e`
+Documentation baseline: `37ea4b92ee75379cbf73e100ce82acbc2252a1bb`
+
+The implementation remains byte-for-byte identical to the live JavaScript and CSS. A fresh clean checkout ran all 21 declared claim commands separately, then passed 4 unit tests, all 23 browser tests, production build, and the high-severity dependency audit. Fresh live desktop and phone contexts verified the first screen, labelled/resettable isolated sample, phone touch, loss, win, reply, fresh-client return link, restart, legal and invalid routes, designed HTTP 404, route metadata, axe scans, and factory URL checks.
+
+Finding count: **0**. Untested public claim count: **0**. Full report: `.factory/review-4.md`. Evidence: `/work/.evidence/beat-postcard-review-4/`.
+
 ## Independent verification 4
 
 Date: 2026-09-06
