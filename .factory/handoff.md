@@ -383,3 +383,38 @@ Verification 1 F-01/F-02 and Review 1 F-01/F-02 remain resolved. There are zero 
 Report: `.factory/review-2.md`
 
 Evidence: `/work/.evidence/beat-postcard-review-2/`
+
+## Strict review 3
+
+Date: 2026-09-06
+
+Verdict: **PASS**
+
+Implementation reviewed: `aa23aa145a8f50385b8698ea6e8f42910b3fba8e`
+
+Repository and documentation baseline reviewed:
+`e0559d29f359e411ab2b1ec09fad9b04ee7b7862`
+
+No product code was changed. A detached clean checkout ran `npm ci`, every one
+of the 21 declared claim commands separately, 4 unit tests, all 23 browser
+tests, the production build, and the high-severity audit. All passed. The
+candidate JavaScript and CSS matched the live assets byte-for-byte.
+
+Fresh desktop and touch-phone browsers showed the job, audience, sample action,
+and playable board before scrolling. The live sample remained labelled,
+populated, resettable, and isolated from pre-seeded real data. A recorded run
+reached loss, retry, win, completed reply, an independent return-client view,
+and a clean restart. Live checks also covered keyboard and touch controls,
+settings persistence, four-tap timing, reduced motion, blocked-audio recovery,
+corrupt-storage recovery, privacy requests, legal and invalid routes, the
+designed HTTP 404, touch targets, focus, axe, response headers, and 60 FPS under
+the declared phone profile.
+
+Fresh Lighthouse scores were 100 for Performance, Accessibility, Best
+Practices, and SEO. LCP was 1.02 seconds, total blocking time was 34.5 ms, and
+CLS was 0. Verification 1 F-01/F-02 and Review 1 F-01/F-02 remain resolved.
+There are zero findings and zero untested public claims.
+
+Report: `.factory/review-3.md`
+
+Evidence: `/work/.evidence/beat-postcard-review-3/`
